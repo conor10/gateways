@@ -166,7 +166,7 @@ class FixMarketAdapter(fix.Application):
         message.setField(fix.ClOrdID(cl_ord_id))
 
         self.order_store.update_order_maps(cl_ord_id, order)
-        self._send_message(message)     sdf
+        self._send_message(message)
 
     def send_cancel(self, order):
         order.status = OrdStatus.PENDING_CANCEL

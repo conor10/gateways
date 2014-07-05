@@ -13,7 +13,7 @@ from fix_gateway.fix_market_gateway import *
 
 class TestFixMarketAdapter(unittest.TestCase):
     def setUp(self):
-        with patch('fix_client.fix_market_gateway.OrderHandler') as \
+        with patch('fix_gateway.fix_market_gateway.OrderHandler') as \
                 self.handler:
             self.adapter = FixMarketAdapter(self.handler)
 
@@ -60,8 +60,7 @@ class TestFixMarketAdapter(unittest.TestCase):
         self.adapter.send_new(order)
 
         message = self.adapter._send_message.call_args[0][0]
-        self.assertTrue(self.adapter._send_message.blueblueb
-         called)
+        self.assertTrue(self.adapter._send_message.called)
         self.assertEqual(
             '9=63|35=D|11=12345_1|15=GBP|38=10|40=2|44=123.456|54=1|55=TEST'
             '|59=0'
