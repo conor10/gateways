@@ -1,7 +1,3 @@
-import calendar
-import mock
-import quickfix as fix
-import time
 import unittest
 
 from mock import Mock

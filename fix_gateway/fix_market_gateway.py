@@ -213,7 +213,7 @@ class FixMarketAdapter(fix.Application):
             self.order_handler.on_replace_ack(order)
 
         elif exec_type == fix.ExecType_PENDING_CANCEL:
-            logging.info('Received pending cancel for order [order id: {}]'
+            self.log.info('Received pending cancel for order [order id: {}]'
                          .format(order.order_id))
 
         elif exec_type == fix.ExecType_STOPPED:
@@ -221,7 +221,7 @@ class FixMarketAdapter(fix.Application):
 
         elif exec_type == fix.ExecType_REJECTED:
             ord_rej_reason = self._extract_field(fix.OrdRejReason(), message)
-            logging.error('Submission rejected, ({}) {}'.format(
+            self.log.error('Submission rejected, ({}) {}'.format(
                 OrdRejReason[ord_rej_reason], ord_rej_reason))
             order.status = OrdStatus.NEW_REJECT
             self.order_handler.on_new_rej(order)
@@ -230,7 +230,7 @@ class FixMarketAdapter(fix.Application):
             pass
 
         elif exec_type == fix.ExecType_PENDING_NEW:
-            logging.info('Received pending new for order [order id: {}]'
+            self.log.info('Received pending new for order [order id: {}]'
                          .format(order.order_id))
 
         elif exec_type == fix.ExecType_CALCULATED:
@@ -243,7 +243,7 @@ class FixMarketAdapter(fix.Application):
             pass
 
         elif exec_type == fix.ExecType_PENDING_REPLACE:
-            logging.info('Received pending replace for order [order id: {}]'
+            self.log.info('Received pending replace for order [order id: {}]'
                          .format(order.order_id))
 
         elif exec_type == fix.ExecType_TRADE:
@@ -281,7 +281,7 @@ class FixMarketAdapter(fix.Application):
             pass
 
         else:
-            logging.error('Unknown execType: {}'.format(exec_type))
+            self.log.error('Unknown execType: {}'.format(exec_type))
 
     def _process_order_cancel_reject(self, message):
         cl_ord_id = self._extract_field(fix.ClOrdID(), message)
